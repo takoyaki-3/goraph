@@ -1,0 +1,15 @@
+syntax = "proto3";
+package pb;
+
+message Graph {
+  repeated Edge edge = 1;
+}
+
+// Our address book file is just one of these.
+message Edge {
+  int64 edge_id = 1;
+  int64 from = 2;
+  int64 to = 3;
+  double cost = 4;
+  repeated int64 point_id = 5;
+}
