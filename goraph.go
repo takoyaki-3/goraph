@@ -17,6 +17,7 @@ type LatLon struct{
 
 type Graph struct{
 	Edges [][]Edge
+	LatLons []LatLon
 }
 
 type Query struct{

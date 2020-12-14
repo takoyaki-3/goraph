@@ -33,8 +33,6 @@ func Load(filename string)goraph.Graph{
 	ways := map[int64][]int64{}
 	usednode := map[int64]bool{}
 
-	nodeid := NewReplace()
-
 	nc,wc,rc:=int64(0),int64(0),int64(0)
 	pb.New(filesiz).SetUnits(pb.U_NO)
 	for i := 0; ; i++ {
@@ -67,10 +65,9 @@ func Load(filename string)goraph.Graph{
 	}
 	fmt.Printf("Nodes: %s, Ways: %s, Relations: %s\n", humanize.Comma(nc), humanize.Comma(wc), humanize.Comma(rc))
 
-	// 結果を出力
-	
 
 	graph := goraph.Graph{}
+	nodeid := NewReplace()
 
 	for _,v := range ways{
 		for i:=1;i<len(v);i++{
@@ -86,6 +83,16 @@ func Load(filename string)goraph.Graph{
 			e.To = node1
 			graph.Edges[node2] = append(graph.Edges[node2],e)
 		}
+	}
+	for k,v := range latlons{
+		if _,ok := usednode[k];!ok{
+			continue
+		}
+		id := nodeid.AddReplace(int64(k))
+		for len(graph.LatLons) <= int(id){
+			graph.LatLons = append(graph.LatLons,goraph.LatLon{})
+		}
+		graph.LatLons[id] = v
 	}
 
 	return graph

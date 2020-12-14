@@ -3,6 +3,7 @@ package pb;
 
 message Graph {
   repeated Edge edge = 1;
+  repeated LatLon latlon = 2;
 }
 
 // Our address book file is just one of these.
@@ -12,4 +13,10 @@ message Edge {
   int64 to = 3;
   double cost = 4;
   repeated int64 point_id = 5;
+}
+
+message LatLon {
+  int64 latlon_id = 1;
+  double lat = 2;
+  double lon = 3;
 }
