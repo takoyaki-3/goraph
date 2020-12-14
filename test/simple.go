@@ -10,7 +10,6 @@ import (
 	"github.com/takoyaki-3/goraph/geometry/h3"
 	"github.com/takoyaki-3/goraph/loader"
 	"github.com/takoyaki-3/goraph/search"
-	csvloader "github.com/takoyaki-3/goraph/loader/csv"
 )
 
 func main(){
@@ -18,10 +17,6 @@ func main(){
 	fmt.Println("start")
 	graph := loader.Load("kanto.graph.pbf")
 	fmt.Println("loaded")
-	csvloader.WriteEdge("edge.csv",graph)
-	fmt.Println("writed")
-
-	// graph := csvloader.LoadEdgeFormCSV("edge.csv")
 
 	h3indexes := h3.MakeH3Index(graph,9)
 	
@@ -29,10 +24,6 @@ func main(){
 
 	q.To = h3.Find(graph,h3indexes,goraph.LatLon{35.654803,139.542766},9)
 	q.From = h3.Find(graph,h3indexes,goraph.LatLon{35.686354,139.673279},9)
-
-	fmt.Println(q)
-	
-	fmt.Println(len(graph.LatLons))
 
 	rv := search.Search(graph,q)
 

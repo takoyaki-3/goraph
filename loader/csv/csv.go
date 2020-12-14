@@ -61,7 +61,7 @@ func LoadEdge(filename string)goraph.Graph{
 func WriteEdge(filename string,graph goraph.Graph){
 	f, err := os.Create(filename)
 	if err != nil {
-			log.Fatal(err)
+		log.Fatal(err)
 	}
 	wr := csv.NewWriter(f)
 	wr.Write([]string{"from","to","cost"})
@@ -77,5 +77,26 @@ func WriteEdge(filename string,graph goraph.Graph){
 	wr.Flush()
 	if err := wr.Error(); err != nil {
 			log.Fatal(err)
+	}
+}
+
+func WriteLatLon(filename string,graph goraph.Graph){
+	f, err := os.Create(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	wr := csv.NewWriter(f)
+	wr.Write([]string{"latlon_id","lat","lon"})
+	
+	for k,v:=range graph.LatLons{
+		lat := strconv.FormatFloat(v.Lat, 'f', -1, 64)
+		lon := strconv.FormatFloat(v.Lon, 'f', -1, 64)
+		line := []string{strconv.FormatInt(int64(k), 10),lat,lon}
+		wr.Write(line)
+	}
+
+	wr.Flush()
+	if err := wr.Error(); err != nil {
+		log.Fatal(err)
 	}
 }
