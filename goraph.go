@@ -10,6 +10,11 @@ type Edge struct{
 	To int64
 }
 
+type LatLon struct{
+	Lat float64
+	Lon float64
+}
+
 type Graph struct{
 	Edges [][]Edge
 }
