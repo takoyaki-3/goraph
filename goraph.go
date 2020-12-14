@@ -83,7 +83,7 @@ func Search(graph Graph,query Query)Output{
 
 	bef := before[pos]
 	for bef!=-2 {
-		out.Nodes = append(out.Nodes,bef)
+		out.Nodes = append([]int64{bef},out.Nodes...)
 		bef = before[bef]
 	}
 	return out

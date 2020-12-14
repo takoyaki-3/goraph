@@ -21,6 +21,7 @@ func Load(filename string)goraph.Graph{
 	}
 
 	edges := [][]goraph.Edge{}
+	latlons := []goraph.LatLon{}
 
 	for _,v:=range graph.Edge{
 		for int64(len(edges)) <= v.From{
@@ -31,9 +32,16 @@ func Load(filename string)goraph.Graph{
 		edge.Cost = v.Cost
 		edges[v.From] = append(edges[v.From],edge)
 	}
+	for _,v:=range graph.Latlon{
+		for int64(len(latlons)) <= v.LatlonId{
+			latlons = append(latlons,goraph.LatLon{})
+		}
+		latlons[v.LatlonId] = goraph.LatLon{v.Lat,v.Lon}
+	}
 
 	g := goraph.Graph{}
 	g.Edges = edges
+	g.LatLons = latlons
 	return g
 }
 
