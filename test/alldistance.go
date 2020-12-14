@@ -25,7 +25,7 @@ func main(){
 	bases = append(bases,h3.Find(graph,h3indexes,goraph.LatLon{35.654803,139.542766},9))
 	bases = append(bases,h3.Find(graph,h3indexes,goraph.LatLon{35.686354,139.673279},9))
 
-	nodes := search.Voronoi(graph,bases)
+	cost := search.AllDistance(graph,bases)
 
 	// 書き出し
 	wf, err := os.Create("./out.csv")
@@ -35,11 +35,11 @@ func main(){
 	defer wf.Close()
 
 	w := csv.NewWriter(wf) // utf8
-	w.Write([]string{"base","lat","lon"})
-	for k,v := range nodes{
+	w.Write([]string{"d","lat","lon"})
+	for k,v := range cost{
 		lat := strconv.FormatFloat(graph.LatLons[k].Lat, 'f', -1, 64)
 		lon := strconv.FormatFloat(graph.LatLons[k].Lon, 'f', -1, 64)
-		w.Write([]string{strconv.Itoa(int(v)),lat,lon})
+		w.Write([]string{strconv.Itoa(int(v/1000.0)%10),lat,lon})
 	}
 	w.Flush()
 }

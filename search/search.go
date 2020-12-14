@@ -111,3 +111,38 @@ func Voronoi(graph goraph.Graph,bases []int64)map[int64]int64{
 
 	return start_group
 }
+
+func AllDistance(graph goraph.Graph,base []int64)[]float64{
+	q := go_minimum_set.NewMinSet()
+	cost := make([]float64,len(graph.Edges))
+	flag := make([]bool,len(graph.Edges))
+
+	for k,_ := range cost{
+		cost[k] = math.MaxFloat64
+	}
+
+	for _,v := range base{
+		cost[v] = 0.0
+		q.Add_val(v,0.0)
+	}
+
+	for q.Len()>0{
+		pos := q.Get_min()
+		if flag[pos]{
+			continue
+		}
+		flag[pos]=true
+		for _,e := range graph.Edges[pos]{
+			eto := e.To
+			if flag[eto] {
+				continue
+			}
+			if cost[eto] <= cost[pos]+e.Cost{
+				continue
+			}
+			cost[eto] = cost[pos]+e.Cost
+			q.Add_val(eto,cost[eto])
+		}
+	}
+	return cost
+}
