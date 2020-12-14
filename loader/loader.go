@@ -9,7 +9,7 @@ import (
 )
 
 // Load Protocol Buffer
-func LoadFormPtotocolBuffer(filename string)goraph.Graph{
+func Load(filename string)goraph.Graph{
 	// Read the existing graph.
 	in, err := ioutil.ReadFile(filename)
 	if err != nil {

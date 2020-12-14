@@ -10,7 +10,7 @@ import (
 )
 
 // Load CSV
-func LoadEdgeFormCSV(filename string)goraph.Graph{
+func LoadEdge(filename string)goraph.Graph{
 	
 	replace_nodeid := *go_replace.NewReplace()
 	edges := [][]goraph.Edge{}
@@ -58,7 +58,7 @@ func LoadEdgeFormCSV(filename string)goraph.Graph{
 	return g
 }
 
-func WriteEdgeCSV(filename string,graph goraph.Graph){
+func WriteEdge(filename string,graph goraph.Graph){
 	f, err := os.Create(filename)
 	if err != nil {
 			log.Fatal(err)
