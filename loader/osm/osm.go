@@ -9,8 +9,8 @@ import (
 	"github.com/cheggaaa/pb"
 	"github.com/dustin/go-humanize"
 	"github.com/kkdd/osmpbf"
-	"math"
 	"github.com/takoyaki-3/goraph"
+	"github.com/takoyaki-3/goraph/geometry"
 )
 
 func Load(filename string)goraph.Graph{
@@ -72,7 +72,7 @@ func Load(filename string)goraph.Graph{
 	for _,v := range ways{
 		for i:=1;i<len(v);i++{
 			e := goraph.Edge{}
-			e.Cost = HubenyDistance(latlons[v[i-1]],latlons[v[i]])
+			e.Cost = geometry.HubenyDistance(latlons[v[i-1]],latlons[v[i]])
 			node1 := nodeid.AddReplace(v[i-1])
 			node2 := nodeid.AddReplace(v[i])
 			for len(graph.Edges) <= int(node1) || len(graph.Edges) <= int(node2){
@@ -129,37 +129,4 @@ func NewReplace() *Replace{
 	s.Str2Id = map[int64]int64{}
 	s.Id2Str = map[int64]int64{}
 	return s
-}
-
-// 緯度経度から距離を計算する
-func degree2radian(x float64) float64 {
-	return x * math.Pi / 180
-}
-
-func Power2(x float64) float64 {
-	return math.Pow(x, 2)
-}
-const (
-	EQUATORIAL_RADIUS    = 6378137.0            // 赤道半径 GRS80
-	POLAR_RADIUS         = 6356752.314          // 極半径 GRS80
-	ECCENTRICITY         = 0.081819191042815790 // 第一離心率 GRS80
-)
-type Point struct {
-	Lat  float64
-	Lon float64
-}
-func HubenyDistance(src goraph.LatLon, dst goraph.LatLon) float64 {
-	dx := degree2radian(dst.Lon - src.Lon)
-	dy := degree2radian(dst.Lat - src.Lat)
-	my := degree2radian((src.Lat + dst.Lat) / 2)
-
-	W := math.Sqrt(1 - (Power2(ECCENTRICITY) * Power2(math.Sin(my)))) // 卯酉線曲率半径の分母
-	m_numer := EQUATORIAL_RADIUS * (1 - Power2(ECCENTRICITY))         // 子午線曲率半径の分子
-
-	M := m_numer / math.Pow(W, 3) // 子午線曲率半径
-	N := EQUATORIAL_RADIUS / W    // 卯酉線曲率半径
-
-	d := math.Sqrt(Power2(dy*M) + Power2(dx*N*math.Cos(my)))
-
-	return d
 }
