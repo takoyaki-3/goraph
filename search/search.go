@@ -29,7 +29,7 @@ func Search(graph goraph.Graph,query Query)Output{
 		cost[k] = math.MaxFloat64
 	}
 
-	if len(graph.Edges) >= int(query.From) || len(graph.Edges) >= int(query.To){
+	if len(graph.Edges) <= int(query.From) || len(graph.Edges) <= int(query.To){
 		return Output{}
 	}
 
