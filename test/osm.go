@@ -18,7 +18,7 @@ func main(){
 	fmt.Println("start")
 	g := osm.Load("./kanto-latest.osm.pbf")
 	fmt.Println("loaded")
-	loader.Write("kanto.g.pbf",g)
+	loader.Write("kanto.graph.pbf",g)
 	fmt.Println("writed")
 
 	var q search.Query

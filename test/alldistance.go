@@ -1,4 +1,3 @@
-//package go_graph
 package main
 
 import (
@@ -16,16 +15,16 @@ import (
 func main(){
 
 	fmt.Println("start")
-	graph := loader.Load("kanto.graph.pbf")
+	g := loader.Load("kanto.graph.pbf")
 	fmt.Println("loaded")
 
-	h3indexes := h3.MakeH3Index(graph,9)
+	h3indexes := h3.MakeH3Index(g,9)
 	
 	bases := []int64{}
-	bases = append(bases,h3.Find(graph,h3indexes,goraph.LatLon{35.654803,139.542766},9))
-	bases = append(bases,h3.Find(graph,h3indexes,goraph.LatLon{35.686354,139.673279},9))
+	bases = append(bases,h3.Find(g,h3indexes,goraph.LatLon{35.654803,139.542766},9))
+	bases = append(bases,h3.Find(g,h3indexes,goraph.LatLon{35.686354,139.673279},9))
 
-	cost := search.AllDistance(graph,bases)
+	cost := search.AllDistance(g,bases)
 
 	// 書き出し
 	wf, err := os.Create("./out.csv")
@@ -37,8 +36,8 @@ func main(){
 	w := csv.NewWriter(wf) // utf8
 	w.Write([]string{"d","lat","lon"})
 	for k,v := range cost{
-		lat := strconv.FormatFloat(graph.LatLons[k].Lat, 'f', -1, 64)
-		lon := strconv.FormatFloat(graph.LatLons[k].Lon, 'f', -1, 64)
+		lat := strconv.FormatFloat(g.LatLons[k].Lat, 'f', -1, 64)
+		lon := strconv.FormatFloat(g.LatLons[k].Lon, 'f', -1, 64)
 		w.Write([]string{strconv.Itoa(int(v/1000.0)%10),lat,lon})
 	}
 	w.Flush()
