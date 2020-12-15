@@ -21,7 +21,7 @@ func main(){
 	loader.Write("kanto.graph.pbf",graph)
 	fmt.Println("writed")
 
-	var q goraph.Query
+	var q search.Query
 
 	h3indexes := h3.MakeH3Index(graph,9)
 

@@ -20,7 +20,7 @@ func main(){
 
 	h3indexes := h3.MakeH3Index(graph,9)
 	
-	var q goraph.Query
+	var q search.Query
 
 	q.To = h3.Find(graph,h3indexes,goraph.LatLon{35.654803,139.542766},9)
 	q.From = h3.Find(graph,h3indexes,goraph.LatLon{35.686354,139.673279},9)
