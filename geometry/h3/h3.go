@@ -9,10 +9,10 @@ import (
 
 type H3index h3.H3Index
 
-func MakeH3Index(graph goraph.Graph,resolution int)map[h3.H3Index][]int64{
+func MakeH3Index(g goraph.Graph,resolution int)map[h3.H3Index][]int64{
 	h3index := map[h3.H3Index][]int64{}
 
-	for k,v := range graph.LatLons {
+	for k,v := range g.LatLons {
 		hex := h3.FromGeo(h3.GeoCoord{v.Lat,v.Lon}, resolution)
 
 		if _,ok := h3index[hex];!ok{
@@ -23,7 +23,7 @@ func MakeH3Index(graph goraph.Graph,resolution int)map[h3.H3Index][]int64{
 	return h3index
 }
 
-func Find(graph goraph.Graph,h3indexes map[h3.H3Index][]int64,latlon goraph.LatLon,resolution int)int64{
+func Find(g goraph.Graph,h3indexes map[h3.H3Index][]int64,latlon goraph.LatLon,resolution int)int64{
 	h3index := h3.FromGeo(h3.GeoCoord{latlon.Lat,latlon.Lon}, resolution)
 
 	hexes,_ := h3.HexRing(h3index,1)
@@ -37,7 +37,7 @@ func Find(graph goraph.Graph,h3indexes map[h3.H3Index][]int64,latlon goraph.LatL
 			continue
 		}
 		for _,v := range h3indexes[v]{
-			d := geometry.HubenyDistance(graph.LatLons[v],latlon)
+			d := geometry.HubenyDistance(g.LatLons[v],latlon)
 			if min_d > d {
 				min_node = v
 				min_d = d

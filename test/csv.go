@@ -1,4 +1,3 @@
-//package go_graph
 package main
 
 import (
@@ -8,11 +7,11 @@ import (
 )
 
 func main(){
-
+	
 	fmt.Println("start")
-	graph := loader.Load("kanto.graph.pbf")
+	g := loader.Load("kanto.graph.pbf")
 	fmt.Println("loaded")
-	csvloader.WriteEdge("edge.csv",graph)
-	csvloader.WriteLatLon("latlon.csv",graph)
+	csvloader.WriteEdge("edge.csv",g)
+	csvloader.WriteLatLon("latlon.csv",g)
 	fmt.Println("writed")
 }

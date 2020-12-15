@@ -18,18 +18,18 @@ type Output struct{
 }
 
 // 
-func Search(graph goraph.Graph,query Query)Output{
+func Search(g goraph.Graph,query Query)Output{
 
 	q := go_minimum_set.NewMinSet()
-	cost := make([]float64,len(graph.Edges))
-	flag := make([]bool,len(graph.Edges))
-	before := make([]int64,len(graph.Edges))
+	cost := make([]float64,len(g.Edges))
+	flag := make([]bool,len(g.Edges))
+	before := make([]int64,len(g.Edges))
 
 	for k,_ := range cost{
 		cost[k] = math.MaxFloat64
 	}
 
-	if len(graph.Edges) <= int(query.From) || len(graph.Edges) <= int(query.To){
+	if len(g.Edges) <= int(query.From) || len(g.Edges) <= int(query.To){
 		return Output{}
 	}
 
@@ -50,7 +50,7 @@ func Search(graph goraph.Graph,query Query)Output{
 			break
 		}
 
-		for _,e := range graph.Edges[pos]{
+		for _,e := range g.Edges[pos]{
 			eto := e.To
 			if flag[eto]{
 				continue
@@ -77,11 +77,11 @@ func Search(graph goraph.Graph,query Query)Output{
 	return out
 }
 
-func Voronoi(graph goraph.Graph,bases []int64)map[int64]int64{
+func Voronoi(g goraph.Graph,bases []int64)map[int64]int64{
 	// initialization
 	q := go_minimum_set.NewMinSet()
-	cost := make([]float64,len(graph.Edges))
-	flag := make([]bool,len(graph.Edges))
+	cost := make([]float64,len(g.Edges))
+	flag := make([]bool,len(g.Edges))
 	start_group := map[int64]int64{}
 
 	counter := int64(0)
@@ -104,7 +104,7 @@ func Voronoi(graph goraph.Graph,bases []int64)map[int64]int64{
 		flag[pos]=true
 		
 		// グラフ拡張処理
-		for _,e := range graph.Edges[pos]{
+		for _,e := range g.Edges[pos]{
 			eto := e.To
 			if flag[eto] {
 				continue
@@ -121,10 +121,10 @@ func Voronoi(graph goraph.Graph,bases []int64)map[int64]int64{
 	return start_group
 }
 
-func AllDistance(graph goraph.Graph,base []int64)[]float64{
+func AllDistance(g goraph.Graph,base []int64)[]float64{
 	q := go_minimum_set.NewMinSet()
-	cost := make([]float64,len(graph.Edges))
-	flag := make([]bool,len(graph.Edges))
+	cost := make([]float64,len(g.Edges))
+	flag := make([]bool,len(g.Edges))
 
 	for k,_ := range cost{
 		cost[k] = math.MaxFloat64
@@ -141,7 +141,7 @@ func AllDistance(graph goraph.Graph,base []int64)[]float64{
 			continue
 		}
 		flag[pos]=true
-		for _,e := range graph.Edges[pos]{
+		for _,e := range g.Edges[pos]{
 			eto := e.To
 			if flag[eto] {
 				continue

@@ -7,10 +7,10 @@ import (
 	"github.com/takoyaki-3/goraph"
 )
 
-func MakeLineString(graph goraph.Graph,latlons []int64)string{
+func MakeLineString(g goraph.Graph,latlons []int64)string{
 	line := orb.LineString{}
 	for _,v:=range latlons{
-		line = append(line,orb.Point{graph.LatLons[v].Lon, graph.LatLons[v].Lat})
+		line = append(line,orb.Point{g.LatLons[v].Lon, g.LatLons[v].Lat})
 	}
 
 	fc := geojson.NewFeatureCollection()

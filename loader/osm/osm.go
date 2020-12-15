@@ -66,7 +66,7 @@ func Load(filename string)goraph.Graph{
 	fmt.Printf("Nodes: %s, Ways: %s, Relations: %s\n", humanize.Comma(nc), humanize.Comma(wc), humanize.Comma(rc))
 
 
-	graph := goraph.Graph{}
+	g := goraph.Graph{}
 	nodeid := NewReplace()
 
 	for _,v := range ways{
@@ -75,13 +75,13 @@ func Load(filename string)goraph.Graph{
 			e.Cost = geometry.HubenyDistance(latlons[v[i-1]],latlons[v[i]])
 			node1 := nodeid.AddReplace(v[i-1])
 			node2 := nodeid.AddReplace(v[i])
-			for len(graph.Edges) <= int(node1) || len(graph.Edges) <= int(node2){
-				graph.Edges = append(graph.Edges,[]goraph.Edge{})
+			for len(g.Edges) <= int(node1) || len(g.Edges) <= int(node2){
+				g.Edges = append(g.Edges,[]goraph.Edge{})
 			}
 			e.To = node2
-			graph.Edges[node1] = append(graph.Edges[node1],e)
+			g.Edges[node1] = append(g.Edges[node1],e)
 			e.To = node1
-			graph.Edges[node2] = append(graph.Edges[node2],e)
+			g.Edges[node2] = append(g.Edges[node2],e)
 		}
 	}
 	for k,v := range latlons{
@@ -89,13 +89,13 @@ func Load(filename string)goraph.Graph{
 			continue
 		}
 		id := nodeid.AddReplace(int64(k))
-		for len(graph.LatLons) <= int(id){
-			graph.LatLons = append(graph.LatLons,goraph.LatLon{})
+		for len(g.LatLons) <= int(id){
+			g.LatLons = append(g.LatLons,goraph.LatLon{})
 		}
-		graph.LatLons[id] = v
+		g.LatLons[id] = v
 	}
 
-	return graph
+	return g
 }
 
 

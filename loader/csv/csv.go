@@ -58,7 +58,7 @@ func LoadEdge(filename string)goraph.Graph{
 	return g
 }
 
-func WriteEdge(filename string,graph goraph.Graph){
+func WriteEdge(filename string,g goraph.Graph){
 	f, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -66,7 +66,7 @@ func WriteEdge(filename string,graph goraph.Graph){
 	wr := csv.NewWriter(f)
 	wr.Write([]string{"from","to","cost"})
 	
-	for k,v:=range graph.Edges{
+	for k,v:=range g.Edges{
 		for _,v:=range v{
 			cost := strconv.FormatFloat(v.Cost, 'f', -1, 64)
 			line := []string{strconv.FormatInt(int64(k), 10),strconv.FormatInt(v.To, 10),cost}
@@ -80,7 +80,7 @@ func WriteEdge(filename string,graph goraph.Graph){
 	}
 }
 
-func WriteLatLon(filename string,graph goraph.Graph){
+func WriteLatLon(filename string,g goraph.Graph){
 	f, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -88,7 +88,7 @@ func WriteLatLon(filename string,graph goraph.Graph){
 	wr := csv.NewWriter(f)
 	wr.Write([]string{"latlon_id","lat","lon"})
 	
-	for k,v:=range graph.LatLons{
+	for k,v:=range g.LatLons{
 		lat := strconv.FormatFloat(v.Lat, 'f', -1, 64)
 		lon := strconv.FormatFloat(v.Lon, 'f', -1, 64)
 		line := []string{strconv.FormatInt(int64(k), 10),lat,lon}
