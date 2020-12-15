@@ -14,8 +14,3 @@ type Graph struct{
 	Edges [][]Edge
 	LatLons []LatLon
 }
-
-type Query struct{
-	From int64
-	To int64
-}

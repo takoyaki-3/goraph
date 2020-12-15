@@ -7,13 +7,18 @@ import (
 	"github.com/takoyaki-3/go_minimum_set"
 )
 
+type Query struct{
+	From int64
+	To int64
+}
+
 type Output struct{
 	Nodes []int64
 	Cost float64
 }
 
 // 
-func Search(graph goraph.Graph,query goraph.Query)Output{
+func Search(graph goraph.Graph,query Query)Output{
 
 	q := go_minimum_set.NewMinSet()
 	cost := make([]float64,len(graph.Edges))
