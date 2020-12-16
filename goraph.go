@@ -1,8 +1,8 @@
 package goraph
 
 type Edge struct{
-	Cost float64
 	To int64
+	Cost float64
 }
 
 type LatLon struct{
