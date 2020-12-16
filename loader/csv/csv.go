@@ -12,8 +12,9 @@ import (
 // Load CSV
 func LoadEdge(filename string)goraph.Graph{
 	
+	g := goraph.Graph{}
+
 	replace_nodeid := *go_replace.NewReplace()
-	edges := [][]goraph.Edge{}
 
 	file, err := os.Open(filename)
 	if err != nil {
@@ -44,17 +45,48 @@ func LoadEdge(filename string)goraph.Graph{
 			cost,_ = strconv.ParseFloat(line[v], 64)
 		}
 
-		for int64(len(edges)) <= from{
-			edges = append(edges,[]goraph.Edge{})
-		}
-		edge := goraph.Edge{}
-		edge.To = to
-		edge.Cost = cost
-		edges[from] = append(edges[from],edge)
+		e := goraph.Edge{}
+		e.To = to
+		e.Cost = cost
+
+		g.AddEdge(e,from)
 	}
 
+	return g
+}
+func LoadLatLon(filename string)goraph.Graph{
+	
 	g := goraph.Graph{}
-	g.Edges = edges
+
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(err)
+	}
+	reader := csv.NewReader(file)
+	defer file.Close()
+
+	counter := -1
+	titles := map[string]int{}
+	
+	for {
+		counter++
+		line, err := reader.Read()
+		if err != nil {
+			break
+		}
+		if counter==0{
+			for k,v:=range line{
+				titles[v]=k
+			}
+			continue
+		}
+		id,_ := strconv.ParseInt(line[titles["latlon_id"]],10,64)
+		lat,_ := strconv.ParseFloat(line[titles["lat"]],64)
+		lon,_ := strconv.ParseFloat(line[titles["lon"]],64)
+
+		g.SetLatLon(goraph.LatLon{lat,lon},id)
+	}
+
 	return g
 }
 

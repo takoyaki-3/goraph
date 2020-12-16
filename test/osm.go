@@ -1,4 +1,3 @@
-//package go_g
 package main
 
 import (
