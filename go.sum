@@ -32,6 +32,8 @@ github.com/takoyaki-3/go_minimum_set v0.0.0-20201209065948-568d5b312b86 h1:1oxdw
 github.com/takoyaki-3/go_minimum_set v0.0.0-20201209065948-568d5b312b86/go.mod h1:anxti4AK7ys61C1UCH4DrwuZ2iiE6so8TwA20rfjLmw=
 github.com/takoyaki-3/go_replace v0.0.0-20201210015221-9cad81effd44 h1:KdeP7HjrDcA+1Ye3WGnM2ej41LyLPvalbcOaC4VUkTo=
 github.com/takoyaki-3/go_replace v0.0.0-20201210015221-9cad81effd44/go.mod h1:JUSdWPT181ze6VWnJMN5ncsvp5KA38LqoLd4Ir5ZgdA=
+github.com/takoyaki-3/gomc v0.0.0-20201218062138-db1db79a593a h1:kVApMX/hBI0LKXdta+F1XTesnV2kDJjrR9Bqu1NJCd0=
+github.com/takoyaki-3/gomc v0.0.0-20201218062138-db1db79a593a/go.mod h1:UwqIRL+HdgCHu0mnQ7B6hqXbXbjZ2F85I1R5Gav5D0E=
 github.com/uber/h3-go v3.0.1+incompatible h1:RVpBm8qd7mM94YuIhNQfCXpVj6mPY6gNsVstDg1FvjY=
 github.com/uber/h3-go v3.0.1+incompatible/go.mod h1:66a2M4rQlf+dtkTWj3bHoLFgDT/Rt4kLT8dMuEQVQvw=
 golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=

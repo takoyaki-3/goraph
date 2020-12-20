@@ -11,5 +11,6 @@ require (
 	github.com/qedus/osmpbf v1.1.0 // indirect
 	github.com/takoyaki-3/go_minimum_set v0.0.0-20201209065948-568d5b312b86
 	github.com/takoyaki-3/go_replace v0.0.0-20201210015221-9cad81effd44
+	github.com/takoyaki-3/gomc v0.0.0-20201218062138-db1db79a593a // indirect
 	github.com/uber/h3-go v3.0.1+incompatible
 )
