@@ -1,10 +1,11 @@
 package search
 
-
 import (
+	// "fmt"
 	"math"
-	"github.com/takoyaki-3/goraph"
+
 	"github.com/takoyaki-3/go_minimum_set"
+	"github.com/takoyaki-3/goraph"
 )
 
 type Query struct{
@@ -20,10 +21,15 @@ type Output struct{
 // 
 func Search(g goraph.Graph,query Query)Output{
 
+	l := len(g.Edges)
+	if l < len(g.LatLons){
+		l = len(g.LatLons)
+	}
+
 	q := go_minimum_set.NewMinSet()
-	cost := make([]float64,len(g.Edges))
-	flag := make([]bool,len(g.Edges))
-	before := make([]int64,len(g.Edges))
+	cost := make([]float64,l)
+	flag := make([]bool,l)
+	before := make([]int64,l)
 
 	for k,_ := range cost{
 		cost[k] = math.MaxFloat64
@@ -59,7 +65,24 @@ func Search(g goraph.Graph,query Query)Output{
 				continue
 			}
 			cost[eto] = cost[pos]+e.Cost
-			before[eto] = pos
+			if len(e.LatLons) == 0{
+				before[eto] = pos
+			} else {
+				if eto != e.LatLons[len(e.LatLons)-1]{
+					before[eto] = e.LatLons[len(e.LatLons)-1]
+				}
+				if e.LatLons[0] != pos{
+					before[e.LatLons[0]] = pos
+				}
+				for k,v := range e.LatLons{
+					if k==0{
+						continue
+					}
+					if v != e.LatLons[k-1]{
+						before[v] = e.LatLons[k-1]
+					}
+				}
+			}
 			q.Add_val(eto,cost[eto])
 		}
 	}

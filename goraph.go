@@ -3,6 +3,7 @@ package goraph
 type Edge struct{
 	To int64
 	Cost float64
+	LatLons []int64
 }
 
 type LatLon struct{
@@ -30,5 +31,8 @@ func (s *Graph)SetLatLon(n LatLon,id int64){
 func (s *Graph)AddLatLon(n LatLon)int64{
 	id := int64(len(s.LatLons))
 	s.LatLons = append(s.LatLons,n)
+	for len(s.Edges) < len(s.LatLons){
+		s.Edges = append(s.Edges, []Edge{})
+	}
 	return id
 }
