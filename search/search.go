@@ -24,7 +24,7 @@ func Search(g goraph.Graph,query Query)Output{
 		l = len(g.LatLons)
 	}
 
-	q := go_minimum_set.NewMinSet()
+	q := priority_queue.NewMinSet()
 	cost := make([]float64,l)
 	flag := make([]bool,l)
 	before := make([]int64,l)
@@ -100,7 +100,7 @@ func Search(g goraph.Graph,query Query)Output{
 
 func Voronoi(g goraph.Graph,bases []int64)map[int64]int64{
 	// initialization
-	q := go_minimum_set.NewMinSet()
+	q := priority_queue.NewMinSet()
 	cost := make([]float64,len(g.Edges))
 	flag := make([]bool,len(g.Edges))
 	start_group := map[int64]int64{}
@@ -143,7 +143,7 @@ func Voronoi(g goraph.Graph,bases []int64)map[int64]int64{
 }
 
 func AllDistance(g goraph.Graph,base []int64)[]float64{
-	q := go_minimum_set.NewMinSet()
+	q := priority_queue.NewMinSet()
 	cost := make([]float64,len(g.Edges))
 	flag := make([]bool,len(g.Edges))
 

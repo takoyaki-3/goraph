@@ -1,4 +1,4 @@
-package go_minimum_set
+package priority_queue
 
 type costque struct {
 	key int64
