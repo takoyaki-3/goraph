@@ -1,11 +1,9 @@
 package search
 
 import (
-	// "fmt"
 	"math"
-
-	"github.com/takoyaki-3/go_minimum_set"
 	"github.com/takoyaki-3/goraph"
+	"github.com/takoyaki-3/goraph/pkg/priority_queue"
 )
 
 type Query struct{
