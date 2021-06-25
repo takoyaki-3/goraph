@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"github.com/cheggaaa/pb"
 	"github.com/dustin/go-humanize"
-	"github.com/kkdd/osmpbf"
+	"github.com/qedus/osmpbf"
 	"github.com/takoyaki-3/goraph"
 	"github.com/takoyaki-3/goraph/geometry"
 )
