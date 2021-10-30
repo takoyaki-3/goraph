@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
-	"io/ioutil"
 
 	"github.com/takoyaki-3/goraph"
 	"github.com/takoyaki-3/goraph/geometry"
 	"github.com/takoyaki-3/goraph/geometry/h3"
 	"github.com/takoyaki-3/goraph/loader"
+
 	// "github.com/takoyaki-3/goraph/loader/osm"
 	// "github.com/takoyaki-3/goraph/loader/geojson"
 	"github.com/takoyaki-3/goraph/search"
@@ -69,11 +70,11 @@ func main() {
 		fmt.Fprintln(w, rawJSON)
 	})
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    bytes, err := ioutil.ReadFile("./index.html")
-    if err != nil {
+		bytes, err := ioutil.ReadFile("./index.html")
+		if err != nil {
 			panic(err)
-    }
-    fmt.Fprintln(w,string(bytes))
+		}
+		fmt.Fprintln(w, string(bytes))
 	})
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }

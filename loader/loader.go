@@ -1,15 +1,16 @@
 package loader
 
 import (
-	"log"
 	"io/ioutil"
+	"log"
+
+	"github.com/golang/protobuf/proto"
 	"github.com/takoyaki-3/goraph"
 	"github.com/takoyaki-3/goraph/pb"
-	"github.com/golang/protobuf/proto"
 )
 
 // Load Protocol Buffer
-func Load(filename string)goraph.Graph{
+func Load(filename string) goraph.Graph {
 	// Read the existing graph.
 	in, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -23,20 +24,20 @@ func Load(filename string)goraph.Graph{
 	edges := [][]goraph.Edge{}
 	latlons := []goraph.LatLon{}
 
-	for _,v:=range graph.Edge{
-		for int64(len(edges)) <= v.From{
-			edges = append(edges,[]goraph.Edge{})
+	for _, v := range graph.Edge {
+		for int64(len(edges)) <= v.From {
+			edges = append(edges, []goraph.Edge{})
 		}
 		edge := goraph.Edge{}
 		edge.To = v.To
 		edge.Cost = v.Cost
-		edges[v.From] = append(edges[v.From],edge)
+		edges[v.From] = append(edges[v.From], edge)
 	}
-	for _,v:=range graph.Latlon{
-		for int64(len(latlons)) <= v.LatlonId{
-			latlons = append(latlons,goraph.LatLon{})
+	for _, v := range graph.Latlon {
+		for int64(len(latlons)) <= v.LatlonId {
+			latlons = append(latlons, goraph.LatLon{})
 		}
-		latlons[v.LatlonId] = goraph.LatLon{v.Lat,v.Lon}
+		latlons[v.LatlonId] = goraph.LatLon{v.Lat, v.Lon}
 	}
 
 	g := goraph.Graph{}
@@ -46,33 +47,33 @@ func Load(filename string)goraph.Graph{
 }
 
 // Write to Protocol Buffer
-func Write(filename string,g goraph.Graph){
+func Write(filename string, g goraph.Graph) {
 	graph := &pb.Graph{}
 	// ...
 	id := int64(0)
 	edge := []*pb.Edge{}
-	for k,v:=range g.Edges{
-		for _,v:=range v{
+	for k, v := range g.Edges {
+		for _, v := range v {
 			e := &pb.Edge{}
 			e.EdgeId = id
 			e.From = int64(k)
 			e.To = v.To
 			e.Cost = v.Cost
-			edge = append(edge,e)
+			edge = append(edge, e)
 			id++
 		}
 	}
 	graph.Edge = edge
 	latlon := []*pb.LatLon{}
-	for k,v:=range g.LatLons{
+	for k, v := range g.LatLons {
 		e := &pb.LatLon{}
 		e.LatlonId = int64(k)
 		e.Lat = v.Lat
 		e.Lon = v.Lon
-		latlon = append(latlon,e)
+		latlon = append(latlon, e)
 	}
 	graph.Latlon = latlon
-	
+
 	// Write the new address book back to disk.
 	out, err := proto.Marshal(graph)
 	if err != nil {

@@ -2,15 +2,16 @@ package geometry
 
 import (
 	"math"
-  "github.com/paulmach/orb"
-  "github.com/paulmach/orb/geojson"
+
+	"github.com/paulmach/orb"
+	"github.com/paulmach/orb/geojson"
 	"github.com/takoyaki-3/goraph"
 )
 
-func MakeLineString(g goraph.Graph,latlons []int64)string{
+func MakeLineString(g goraph.Graph, latlons []int64) string {
 	line := orb.LineString{}
-	for _,v:=range latlons{
-		line = append(line,orb.Point{g.LatLons[v].Lon, g.LatLons[v].Lat})
+	for _, v := range latlons {
+		line = append(line, orb.Point{g.LatLons[v].Lon, g.LatLons[v].Lat})
 	}
 
 	fc := geojson.NewFeatureCollection()
@@ -27,15 +28,18 @@ func degree2radian(x float64) float64 {
 func Power2(x float64) float64 {
 	return math.Pow(x, 2)
 }
+
 const (
-	EQUATORIAL_RADIUS    = 6378137.0            // 赤道半径 GRS80
-	POLAR_RADIUS         = 6356752.314          // 極半径 GRS80
-	ECCENTRICITY         = 0.081819191042815790 // 第一離心率 GRS80
+	EQUATORIAL_RADIUS = 6378137.0            // 赤道半径 GRS80
+	POLAR_RADIUS      = 6356752.314          // 極半径 GRS80
+	ECCENTRICITY      = 0.081819191042815790 // 第一離心率 GRS80
 )
+
 type Point struct {
-	Lat  float64
+	Lat float64
 	Lon float64
 }
+
 func HubenyDistance(src goraph.LatLon, dst goraph.LatLon) float64 {
 	dx := degree2radian(dst.Lon - src.Lon)
 	dy := degree2radian(dst.Lat - src.Lat)
